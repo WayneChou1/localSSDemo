@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E16EAACEAF542333C5D451A /* libPods-localSSDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987149CF4595BDFA135084C /* libPods-localSSDemo.a */; };
 		F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9B921CA55D7009D6400 /* AppDelegate.m */; };
 		F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9BC21CA55D7009D6400 /* ViewController.m */; };
 		F650E9C021CA55D7009D6400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F650E9BE21CA55D7009D6400 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 		F650E9C821CA55D8009D6400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9C721CA55D8009D6400 /* main.m */; };
 		F650E9D221CA55D8009D6400 /* localSSDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9D121CA55D8009D6400 /* localSSDemoTests.m */; };
 		F650E9DD21CA55D8009D6400 /* localSSDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9DC21CA55D8009D6400 /* localSSDemoUITests.m */; };
+		F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EB21CA56B3009D6400 /* SockClient.m */; };
+		F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EE21CA598D009D6400 /* ProxyProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localSSDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-localSSDemo/Pods-localSSDemo.release.xcconfig"; sourceTree = "<group>"; };
+		6987149CF4595BDFA135084C /* libPods-localSSDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-localSSDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B521CA55D7009D6400 /* localSSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localSSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B821CA55D7009D6400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F650E9B921CA55D7009D6400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -51,6 +56,11 @@
 		F650E9D821CA55D8009D6400 /* localSSDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = localSSDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9DC21CA55D8009D6400 /* localSSDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = localSSDemoUITests.m; sourceTree = "<group>"; };
 		F650E9DE21CA55D8009D6400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F650E9EA21CA56B3009D6400 /* SockClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SockClient.h; sourceTree = "<group>"; };
+		F650E9EB21CA56B3009D6400 /* SockClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SockClient.m; sourceTree = "<group>"; };
+		F650E9ED21CA598D009D6400 /* ProxyProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyProtocol.h; sourceTree = "<group>"; };
+		F650E9EE21CA598D009D6400 /* ProxyProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxyProtocol.m; sourceTree = "<group>"; };
+		FC148F4EF88E62562A35C398 /* Pods-localSSDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localSSDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-localSSDemo/Pods-localSSDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E16EAACEAF542333C5D451A /* libPods-localSSDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +89,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17F2CC1A572278FEBCA8F38F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6987149CF4595BDFA135084C /* libPods-localSSDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A91871C9D02B388D1F8E11EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FC148F4EF88E62562A35C398 /* Pods-localSSDemo.debug.xcconfig */,
+				3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F650E9AC21CA55D7009D6400 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +113,8 @@
 				F650E9D021CA55D8009D6400 /* localSSDemoTests */,
 				F650E9DB21CA55D8009D6400 /* localSSDemoUITests */,
 				F650E9B621CA55D7009D6400 /* Products */,
+				A91871C9D02B388D1F8E11EE /* Pods */,
+				17F2CC1A572278FEBCA8F38F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +135,10 @@
 				F650E9B921CA55D7009D6400 /* AppDelegate.m */,
 				F650E9BB21CA55D7009D6400 /* ViewController.h */,
 				F650E9BC21CA55D7009D6400 /* ViewController.m */,
+				F650E9EA21CA56B3009D6400 /* SockClient.h */,
+				F650E9EB21CA56B3009D6400 /* SockClient.m */,
+				F650E9ED21CA598D009D6400 /* ProxyProtocol.h */,
+				F650E9EE21CA598D009D6400 /* ProxyProtocol.m */,
 				F650E9BE21CA55D7009D6400 /* Main.storyboard */,
 				F650E9C121CA55D8009D6400 /* Assets.xcassets */,
 				F650E9C321CA55D8009D6400 /* LaunchScreen.storyboard */,
@@ -139,6 +173,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F650E9E121CA55D8009D6400 /* Build configuration list for PBXNativeTarget "localSSDemo" */;
 			buildPhases = (
+				5E42D69406AE9B610D560CA2 /* [CP] Check Pods Manifest.lock */,
 				F650E9B121CA55D7009D6400 /* Sources */,
 				F650E9B221CA55D7009D6400 /* Frameworks */,
 				F650E9B321CA55D7009D6400 /* Resources */,
@@ -257,6 +292,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5E42D69406AE9B610D560CA2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-localSSDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F650E9B121CA55D7009D6400 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -264,7 +320,9 @@
 			files = (
 				F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */,
 				F650E9C821CA55D8009D6400 /* main.m in Sources */,
+				F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */,
 				F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */,
+				F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +491,7 @@
 		};
 		F650E9E221CA55D8009D6400 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC148F4EF88E62562A35C398 /* Pods-localSSDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -450,6 +509,7 @@
 		};
 		F650E9E321CA55D8009D6400 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

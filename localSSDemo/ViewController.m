@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SockClient.h"
 
 @interface ViewController ()
 
@@ -16,8 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (IBAction)startBtnOnClick:(UIButton *)sender {
+    SockClient *s = [[SockClient alloc] init];
+    [s startWithLocalPort:9090];
+}
 
 @end
