@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
+#import "WebViewController.h"
 #import "SockClient.h"
 
 @interface ViewController ()
+
+@property (nonatomic,strong) SockClient *s;
 
 @end
 
@@ -20,8 +23,13 @@
 }
 
 - (IBAction)startBtnOnClick:(UIButton *)sender {
-    SockClient *s = [[SockClient alloc] init];
-    [s startWithLocalPort:9090];
+    if (!self.s) {
+        self.s = [[SockClient alloc] init];
+        [self.s startWithLocalPort:9090];
+    }
 }
 
+- (IBAction)nextBtnOnClick:(UIButton *)sender {
+    [self.navigationController pushViewController:[WebViewController new] animated:YES];
+}
 @end

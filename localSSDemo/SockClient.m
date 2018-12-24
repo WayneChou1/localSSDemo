@@ -9,9 +9,41 @@
 #import "SockClient.h"
 #import <GCDAsyncSocket.h>
 
-@interface SockClient () <GCDAsyncSocketDelegate>
+@interface EVPipeline : NSObject
+{
+@public
+//    struct encryption_ctx sendEncryptionContext;
+//    struct encryption_ctx recvEncryptionContext;
+}
+
+@property (nonatomic, strong) GCDAsyncSocket *localSocket;
+@property (nonatomic, strong) GCDAsyncSocket *remoteSocket;
+@property (nonatomic, assign) int stage;
+@property (nonatomic, strong) NSData *addrData;
+@property (nonatomic, strong) NSData *requestData;
+@property (nonatomic, strong) NSData *destinationData;    //!< 用于存续将目标地址解析后的数据
+
+- (void)disconnect;
+
+@end
+
+@implementation EVPipeline
+
+- (void)disconnect {
+    [self.localSocket disconnectAfterReadingAndWriting];
+    [self.remoteSocket disconnectAfterReadingAndWriting];
+}
+
+@end
+
+@interface SockClient () <GCDAsyncSocketDelegate>{
+    NSMutableArray *_pipelines;      /// 所有连接Socks Server 的Object
+}
 
 @property (nonatomic,strong) GCDAsyncSocket *listenServer;
+@property (nonatomic,strong) GCDAsyncSocket *remoteSocket;
+@property (nonatomic,strong) EVPipeline *socket;
+
 @property (nonatomic,strong) dispatch_queue_t listenQueen;
 
 @end
@@ -37,11 +69,23 @@
 
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
     NSLog(@"Accept Success");
-    [self.listenServer readDataWithTimeout:-1 tag:0];
+    EVPipeline *pipeline = [[EVPipeline alloc] init];
+    pipeline.localSocket = newSocket;
+    [_pipelines addObject:pipeline];
+    [pipeline.localSocket readDataWithTimeout:-1 tag:0];
+    self.socket = pipeline;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    NSLog(@"tag:%ld,  data:%@",tag,data);
+    NSLog(@"tag:%ld,  didReadData:%@",tag,data);
+    if (tag == 0) {
+        // get request data
+        [self.socket.localSocket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:0];
+    }
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
+    NSLog(@"didWriteDataWithTag:%ld",tag);
 }
 
 #pragma mark - getter

@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+static int ssLocalPort;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProxyProtocol : NSObject
+@interface ProxyProtocol : NSURLProtocol
 
 + (void)setLocalPort:(NSInteger)localPort;
 

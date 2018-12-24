@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4E16EAACEAF542333C5D451A /* libPods-localSSDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6987149CF4595BDFA135084C /* libPods-localSSDemo.a */; };
+		621D1CD621CC7C1A00FAA721 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CD421CC7C1A00FAA721 /* WebViewController.m */; };
+		621D1CD721CC7C1A00FAA721 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 621D1CD521CC7C1A00FAA721 /* WebViewController.xib */; };
+		621D1CDA21CC811F00FAA721 /* URLSchemeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */; };
+		621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */; };
 		F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9B921CA55D7009D6400 /* AppDelegate.m */; };
 		F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9BC21CA55D7009D6400 /* ViewController.m */; };
 		F650E9C021CA55D7009D6400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F650E9BE21CA55D7009D6400 /* Main.storyboard */; };
@@ -39,6 +43,13 @@
 
 /* Begin PBXFileReference section */
 		3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localSSDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-localSSDemo/Pods-localSSDemo.release.xcconfig"; sourceTree = "<group>"; };
+		621D1CD321CC7C1A00FAA721 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		621D1CD421CC7C1A00FAA721 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		621D1CD521CC7C1A00FAA721 /* WebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		621D1CD821CC811F00FAA721 /* URLSchemeHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLSchemeHandler.h; sourceTree = "<group>"; };
+		621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLSchemeHandler.m; sourceTree = "<group>"; };
+		621D1CDB21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebViewConfiguration+proxyConifg.h"; sourceTree = "<group>"; };
+		621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebViewConfiguration+proxyConifg.m"; sourceTree = "<group>"; };
 		6987149CF4595BDFA135084C /* libPods-localSSDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-localSSDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B521CA55D7009D6400 /* localSSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localSSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B821CA55D7009D6400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -135,10 +146,17 @@
 				F650E9B921CA55D7009D6400 /* AppDelegate.m */,
 				F650E9BB21CA55D7009D6400 /* ViewController.h */,
 				F650E9BC21CA55D7009D6400 /* ViewController.m */,
+				621D1CD321CC7C1A00FAA721 /* WebViewController.h */,
+				621D1CD421CC7C1A00FAA721 /* WebViewController.m */,
+				621D1CD521CC7C1A00FAA721 /* WebViewController.xib */,
 				F650E9EA21CA56B3009D6400 /* SockClient.h */,
 				F650E9EB21CA56B3009D6400 /* SockClient.m */,
 				F650E9ED21CA598D009D6400 /* ProxyProtocol.h */,
 				F650E9EE21CA598D009D6400 /* ProxyProtocol.m */,
+				621D1CDB21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.h */,
+				621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */,
+				621D1CD821CC811F00FAA721 /* URLSchemeHandler.h */,
+				621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */,
 				F650E9BE21CA55D7009D6400 /* Main.storyboard */,
 				F650E9C121CA55D8009D6400 /* Assets.xcassets */,
 				F650E9C321CA55D8009D6400 /* LaunchScreen.storyboard */,
@@ -273,6 +291,7 @@
 				F650E9C521CA55D8009D6400 /* LaunchScreen.storyboard in Resources */,
 				F650E9C221CA55D8009D6400 /* Assets.xcassets in Resources */,
 				F650E9C021CA55D7009D6400 /* Main.storyboard in Resources */,
+				621D1CD721CC7C1A00FAA721 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,8 +338,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */,
+				621D1CD621CC7C1A00FAA721 /* WebViewController.m in Sources */,
 				F650E9C821CA55D8009D6400 /* main.m in Sources */,
 				F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */,
+				621D1CDA21CC811F00FAA721 /* URLSchemeHandler.m in Sources */,
+				621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */,
 				F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */,
 				F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */,
 			);

@@ -10,7 +10,7 @@
 
 static NSURLSession *session;
 
-@interface EVProxyProtocol() <NSURLSessionDataDelegate>
+@interface ProxyProtocol() <NSURLSessionDataDelegate>
 
 @property (nonatomic, strong) NSURLSessionDataTask *task;
 
