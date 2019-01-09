@@ -12,8 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SockClient : NSObject
 
+@property (nonatomic,copy) NSString *userName;
+@property (nonatomic,copy) NSString *password;
+
 - (BOOL)startWithLocalPort:(int)localPort;
+- (void)connectToHost:(NSString *)host port:(NSInteger)port;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+ZZZZ

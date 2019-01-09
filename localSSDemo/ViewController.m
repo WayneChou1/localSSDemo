@@ -10,6 +10,9 @@
 #import "WebViewController.h"
 #import "SockClient.h"
 
+static NSString * const host = @"140.82.50.80";
+static NSInteger port = 8989;
+
 @interface ViewController ()
 
 @property (nonatomic,strong) SockClient *s;
@@ -25,7 +28,10 @@
 - (IBAction)startBtnOnClick:(UIButton *)sender {
     if (!self.s) {
         self.s = [[SockClient alloc] init];
+        self.s.userName = @"";
+        self.s.password = @"zzw1993";
         [self.s startWithLocalPort:9090];
+        [self.s connectToHost:host port:port];
     }
 }
 

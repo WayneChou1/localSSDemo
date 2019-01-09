@@ -51,6 +51,7 @@
 		621D1CDB21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebViewConfiguration+proxyConifg.h"; sourceTree = "<group>"; };
 		621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebViewConfiguration+proxyConifg.m"; sourceTree = "<group>"; };
 		6987149CF4595BDFA135084C /* libPods-localSSDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-localSSDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F616B89821D8D7DE007763D8 /* socks5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socks5.h; sourceTree = "<group>"; };
 		F650E9B521CA55D7009D6400 /* localSSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localSSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B821CA55D7009D6400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F650E9B921CA55D7009D6400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -117,6 +118,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F616B89721D8D7B7007763D8 /* 3rd */ = {
+			isa = PBXGroup;
+			children = (
+				F616B89821D8D7DE007763D8 /* socks5.h */,
+			);
+			path = 3rd;
+			sourceTree = "<group>";
+		};
 		F650E9AC21CA55D7009D6400 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +151,7 @@
 		F650E9B721CA55D7009D6400 /* localSSDemo */ = {
 			isa = PBXGroup;
 			children = (
+				F616B89721D8D7B7007763D8 /* 3rd */,
 				F650E9B821CA55D7009D6400 /* AppDelegate.h */,
 				F650E9B921CA55D7009D6400 /* AppDelegate.m */,
 				F650E9BB21CA55D7009D6400 /* ViewController.h */,
