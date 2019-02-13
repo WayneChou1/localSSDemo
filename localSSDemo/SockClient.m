@@ -11,6 +11,8 @@
 #import "3rd/socks5.h"
 #include <arpa/inet.h>
 #include "3rd/libsodium-ios/include/sodium.h"
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonCryptor.h>
 
 static int const SOCKS_Consult = 111111;            //!< Consult Tag
 static int const SOCKS_AUTH_USERPASS = 222222; // Auth
@@ -53,14 +55,48 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 @property (nonatomic,strong) GCDAsyncSocket *listenServer;
 @property (nonatomic,strong) GCDAsyncSocket *remoteSocket;
 
-@property (nonatomic,strong) EVPipeline *readSocket;
-@property (nonatomic,strong) EVPipeline *writeSockrt;
-
 @property (nonatomic,strong) dispatch_queue_t listenQueen;
 
 @end
 
 @implementation SockClient
+
+#pragma mark - 根据Local/Remote Socket,查找Super Object
+/**
+ *  根据当前local socket对象查找父对象
+ *
+ *  @param localSocket localSocket
+ *
+ *  @return EVPipeline Object
+ */
+- (EVPipeline *)pipelineOfLocalSocket:(GCDAsyncSocket *)localSocket {
+    __block EVPipeline *ret;
+    [_pipelines enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        EVPipeline *pipeline = obj;
+        if (pipeline.localSocket == localSocket) {
+            ret = pipeline;
+        }
+    }];
+    return ret;
+}
+
+/**
+ *  根据当前remote socket对象查找父对象
+ *
+ *  @param remoteSocket remoteSocket
+ *
+ *  @return EVPipeline Object
+ */
+- (EVPipeline *)pipelineOfRemoteSocket:(GCDAsyncSocket *)remoteSocket {
+    __block EVPipeline *ret;
+    [_pipelines enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        EVPipeline *pipeline = obj;
+        if (pipeline.remoteSocket == remoteSocket) {
+            ret = pipeline;
+        }
+    }];
+    return ret;
+}
 
 - (BOOL)startWithLocalPort:(int)localPort {
     if (!self.listenServer) {
@@ -73,6 +109,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
             return  NO;
         }
         NSLog(@"开始监听%d端口",localPort);
+        _pipelines = @[].mutableCopy;
     }
     return YES;
 }
@@ -90,35 +127,36 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     pipeline.localSocket = newSocket;
     [_pipelines addObject:pipeline];
     [pipeline.localSocket readDataWithTimeout:-1 tag:0];
-    self.readSocket = pipeline;
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    EVPipeline *pipeline = [self pipelineOfLocalSocket:sock] ?: [self pipelineOfRemoteSocket:sock];
+    
+    NSString *dataStr = [data description];
     NSLog(@"didReadTag:%ld,  didReadData:%@",tag,dataStr);
     if (tag == 0) {
         // get request data
-        [self.readSocket.localSocket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:0];
+        [pipeline.localSocket writeData:[NSData dataWithBytes:"\x05\x00" length:2] withTimeout:-1 tag:0];
     }else if (tag == 1) {
-        //[self setConsultMethodUSRPSDWith:self.readSocket data:data];
-        self.readSocket.requestData = data;
-        [self setConsultMethodNoWithPipeline:self.readSocket];
+        pipeline.requestData = data;
+        [self setConsultMethodNoWithPipeline:pipeline];
     }else if (tag == 2) {         // read data from local, send to remote
         /**
          *  存储本地解析后的目标服务器地址信息，等待Socks Server响应成功后
          *  再次将上面信息发送到Socks Server，获取目标服务器详细信息
          */
-        // NSLog(@"pipeline.destinationData:%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-        self.readSocket.destinationData = data;
-        [self.readSocket.remoteSocket writeData:data withTimeout:-1 tag:4];
+//        NSLog(@"pipeline.destinationData:%@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
+        pipeline.destinationData = data;
+        [pipeline.remoteSocket writeData:data withTimeout:-1 tag:4];
         
     }else if (tag == 3) { // read data from remote, send to local
-        [self.readSocket.localSocket writeData:data withTimeout:-1 tag:3];
+        [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
     }
     else if (tag == SOCKS_Consult) {
-        [self socksConsultWithPipeline:self.readSocket data:data];
+        [self socksConsultWithPipeline:pipeline data:data];
     }else if (tag == SOCKS_AUTH_USERPASS) {
-        [self socksAuthUserPassWithPipeline:self.readSocket data:data];
+        [self socksAuthUserPassWithPipeline:pipeline data:data];
     }else if(tag == SOCKS_SERVER_RESPONSE) {   //
         /**
          *  响应目标服务器
@@ -135,7 +173,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 #ifdef DEBUG
                 NSLog(@"fake reply Successful, request destination data");
 #endif
-                [self socksFakeReply:self.readSocket];
+                [self socksFakeReply:pipeline];
             }
         }
     }
@@ -143,21 +181,27 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
     NSLog(@"didWriteDataWithTag:%ld",tag);
-    EVPipeline *pipeline = self.readSocket;
+    EVPipeline *pipeline = [self pipelineOfLocalSocket:sock] ?: [self pipelineOfRemoteSocket:sock];
     
     if (tag == 0) {
-        [self.readSocket.localSocket readDataWithTimeout:-1 tag:1];
+        [pipeline.localSocket readDataWithTimeout:-1 tag:1];
     }
     if (tag == SOCKS_Consult) {
         
+    }else if (tag == 2){
+        
     }else if (tag == 3) {
         // write data to local
-        [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:3];
-        [pipeline.localSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:2];
+//        [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:3];
+//        [pipeline.localSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:2];
+        [pipeline.remoteSocket readDataWithTimeout:-1 tag:3];
+        [pipeline.localSocket readDataWithTimeout:-1 tag:2];
     }else if (tag == 4) {
         // write data to remote
-        [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:3];
-        [pipeline.localSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:2];
+//        [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:3];
+//        [pipeline.localSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:2];
+        [pipeline.remoteSocket readDataWithTimeout:-1 tag:3];
+        [pipeline.localSocket readDataWithTimeout:-1 tag:2];
     }else if(tag == SOCKS_SERVER_RESPONSE) {
         [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:SOCKS_SERVER_RESPONSE];
     }
@@ -165,9 +209,10 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
     NSLog(@"didConnect:%@",sock);
-//    [self socksOpenWithSocket:sock];
-    [self.readSocket.remoteSocket writeData:self.readSocket.addrData withTimeout:-1 tag:2];
-    [self socksFakeReply:self.readSocket];
+    
+    EVPipeline *pipeline = [self pipelineOfRemoteSocket:sock];
+    [pipeline.remoteSocket writeData:pipeline.addrData withTimeout:-1 tag:2];
+    [self socksFakeReply:pipeline];
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err {
@@ -179,30 +224,59 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 - (void)setConsultMethodNoWithPipeline:(EVPipeline *)pipeline {
     char addr_to_send[ADDR_STR_LEN];
     int addr_len = 0;
-    [self transformDataToProxyServer:pipeline addr:addr_to_send addr_len:addr_len];
+    addr_len = [self transformDataToProxyServer:pipeline addr:addr_to_send addr_len:addr_len];
     GCDAsyncSocket *remoteSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.listenQueen];
     pipeline.remoteSocket = remoteSocket;
     [remoteSocket connectToHost:_host onPort:_port error:nil];
-//    init_encryption(&(pipeline->sendEncryptionContext));
-//    init_encryption(&(pipeline->recvEncryptionContext));
-//    encrypt_buf(&(pipeline->sendEncryptionContext), addr_to_send, &addr_len);
-//    pipeline.addrData = [NSData dataWithBytes:addr_to_send length:addr_len];
+    
+//    NSData *d = [NSData dataWithBytes:addr_to_send length:addr_len];
+//    const unsigned char *a = NULL;
+//    unsigned char *b = NULL;
+//    uint64_t c = d.length;
+//    const unsigned char *n = "";
+//    uint64_t ic = 0;
+//    crypto_stream_chacha20_xor_ic(addr_to_send, addr_to_send, c, n, ic, k);
+    
+    NSString *key = @"zzw1993";
+    NSLog(@"addr_to_send3：%s",addr_to_send);
+    NSData *addrData = [NSData dataWithBytes:addr_to_send length:addr_len];
+    pipeline.addrData = [self CBCWithOperation:kCCEncrypt andIv:nil andKey:key andInput:addrData];
+    NSLog(@"addrData:%@",[pipeline.addrData description]);
+}
+
+- (NSData *)CBCWithOperation:(CCOperation)operation andIv:(NSString *)ivString andKey:(NSString *)keyString andInput:(NSData *)inputData{
+    
+    const char *iv = [[ivString dataUsingEncoding: NSUTF8StringEncoding] bytes];
+    const char *key = [[keyString dataUsingEncoding: NSUTF8StringEncoding] bytes];
+    
+    CCCryptorRef cryptor;
+    CCCryptorCreateWithMode(operation, kCCModeCFB, kCCAlgorithmAES, ccNoPadding, iv, key, [keyString length], NULL, 0, 0, 0, &cryptor);
+    
+    NSUInteger inputLength = inputData.length;
+    char *outData = malloc(inputLength);
+    memset(outData, 0, inputLength);
+    size_t outLength = 0;
+    CCCryptorUpdate(cryptor, inputData.bytes, inputLength, outData, inputLength, &outLength);
+    NSData *data = [NSData dataWithBytes: outData length: outLength];
+    CCCryptorRelease(cryptor);
+    free(outData);
+    return data;
 }
 
 #pragma mark -- USERNAME/PASSWORD 协商
-- (void)setConsultMethodUSRPSDWith:(EVPipeline *)pipeline data:(NSData *)data{
-    // store request data
-    self.readSocket.requestData = data;
-    if(!pipeline.remoteSocket) {
-        NSError *connectErr = nil;
-        self.readSocket.remoteSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.listenQueen];
-        [self.readSocket.remoteSocket connectToHost:_host onPort:_port error:&connectErr];
-        if (connectErr) {
-            NSLog(@"connect error:%@",connectErr.localizedDescription);
-        }
-        NSLog(@"writeSockrt.remoteSocket:%@",self.readSocket.remoteSocket);
-    }
-}
+//- (void)setConsultMethodUSRPSDWith:(EVPipeline *)pipeline data:(NSData *)data{
+//    // store request data
+//    self.readSocket.requestData = data;
+//    if(!pipeline.remoteSocket) {
+//        NSError *connectErr = nil;
+//        self.readSocket.remoteSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:self.listenQueen];
+//        [self.readSocket.remoteSocket connectToHost:_host onPort:_port error:&connectErr];
+//        if (connectErr) {
+//            NSLog(@"connect error:%@",connectErr.localizedDescription);
+//        }
+//        NSLog(@"writeSockrt.remoteSocket:%@",self.readSocket.remoteSocket);
+//    }
+//}
 
 #pragma mark - 协商
 #pragma mark -- 开始协商
@@ -360,6 +434,19 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
  *  根据destination host & prot 获取的data，转发Proxy Server
  */
 - (int)transformDataToProxyServer:(EVPipeline *)pipeline addr:(char [ADDR_STR_LEN])addr_to_send addr_len:(int)addr_len {
+    
+    NSMutableString *string = [[NSMutableString alloc] init];
+    unsigned char *dataBytes = (unsigned char*)pipeline.requestData.bytes;
+    for (NSInteger i = 0; i < 4; i++) {
+        NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+        if ([hexStr length] == 2) {
+            [string appendString:hexStr];
+        } else {
+            [string appendFormat:@"0%@", hexStr];
+        }
+    }
+    NSLog(@"requestData.bytes:%@",string);
+    
     // transform data
     struct socks5_request *request = (struct socks5_request *)pipeline.requestData.bytes;
     if (request->cmd != SOCKS_CMD_CONNECT) {
@@ -381,12 +468,18 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         // IP V4
         size_t in_addr_len = sizeof(struct in_addr);
         memcpy(addr_to_send + addr_len, pipeline.requestData.bytes + 4, in_addr_len + 2);
+        
+        NSLog(@"addr_to_send：%s",addr_to_send);
+        
         addr_len += in_addr_len + 2;
         
         // now get it back and print it
         inet_ntop(AF_INET, pipeline.requestData.bytes + 4, addr_str, ADDR_STR_LEN);
     } else if (request->atyp == SOCKS_DOMAIN) {
         // Domain name
+        
+        NSLog(@"addr_to_send1：%s",addr_to_send);
+        
         unsigned char name_len = *(unsigned char *)(pipeline.requestData.bytes + 4);
         addr_to_send[addr_len++] = name_len;
         memcpy(addr_to_send + addr_len, pipeline.requestData.bytes + 4 + 1, name_len);
@@ -394,11 +487,17 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         addr_str[name_len] = '\0';
         addr_len += name_len;
         
+        NSLog(@"addr_to_send2：%s",addr_to_send);
+        
         // get port
         unsigned char v1 = *(unsigned char *)(pipeline.requestData.bytes + 4 + 1 + name_len);
         unsigned char v2 = *(unsigned char *)(pipeline.requestData.bytes + 4 + 1 + name_len + 1);
         addr_to_send[addr_len++] = v1;
         addr_to_send[addr_len++] = v2;
+        
+        NSLog(@"name_len:%x",name_len);
+        NSLog(@"addr_to_send3：%s",addr_to_send);
+//        NSLog(@"addr_len:%d",addr_len);
     } else {
         [pipeline disconnect];
         return -1;
