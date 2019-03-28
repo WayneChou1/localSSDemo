@@ -240,11 +240,11 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     NSString *key = @"zzw1993";
     NSLog(@"addr_to_send3：%s",addr_to_send);
     NSData *addrData = [NSData dataWithBytes:addr_to_send length:addr_len];
-    pipeline.addrData = [self CBCWithOperation:kCCEncrypt andIv:nil andKey:key andInput:addrData];
+    pipeline.addrData = [self CFBWithOperation:kCCEncrypt andIv:nil andKey:key andInput:addrData];
     NSLog(@"addrData:%@",[pipeline.addrData description]);
 }
 
-- (NSData *)CBCWithOperation:(CCOperation)operation andIv:(NSString *)ivString andKey:(NSString *)keyString andInput:(NSData *)inputData{
+- (NSData *)CFBWithOperation:(CCOperation)operation andIv:(NSString *)ivString andKey:(NSString *)keyString andInput:(NSData *)inputData{
     
     const char *iv = [[ivString dataUsingEncoding: NSUTF8StringEncoding] bytes];
     const char *key = [[keyString dataUsingEncoding: NSUTF8StringEncoding] bytes];
