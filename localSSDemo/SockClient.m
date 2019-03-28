@@ -11,8 +11,7 @@
 #import "3rd/socks5.h"
 #include <arpa/inet.h>
 #include "3rd/libsodium-ios/include/sodium.h"
-#import <CommonCrypto/CommonDigest.h>
-#import <CommonCrypto/CommonCryptor.h>
+#import "NSData+AES256.h"
 
 static int const SOCKS_Consult = 111111;            //!< Consult Tag
 static int const SOCKS_AUTH_USERPASS = 222222; // Auth
@@ -151,7 +150,11 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         [pipeline.remoteSocket writeData:data withTimeout:-1 tag:4];
         
     }else if (tag == 3) { // read data from remote, send to local
-        [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
+        NSString *key = @"zzw1993";
+//        NSData *decryptData = [data AES128OperationWithEncriptionMode:kCCEncrypt key:keyData iv:keyData];
+        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
+        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
+        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
     }
     else if (tag == SOCKS_Consult) {
         [self socksConsultWithPipeline:pipeline data:data];
@@ -229,39 +232,32 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     pipeline.remoteSocket = remoteSocket;
     [remoteSocket connectToHost:_host onPort:_port error:nil];
     
-//    NSData *d = [NSData dataWithBytes:addr_to_send length:addr_len];
-//    const unsigned char *a = NULL;
-//    unsigned char *b = NULL;
-//    uint64_t c = d.length;
-//    const unsigned char *n = "";
-//    uint64_t ic = 0;
-//    crypto_stream_chacha20_xor_ic(addr_to_send, addr_to_send, c, n, ic, k);
-    
     NSString *key = @"zzw1993";
     NSLog(@"addr_to_send3：%s",addr_to_send);
     NSData *addrData = [NSData dataWithBytes:addr_to_send length:addr_len];
-    pipeline.addrData = [self CFBWithOperation:kCCEncrypt andIv:nil andKey:key andInput:addrData];
+    pipeline.addrData = [addrData CFBWithOperation:kCCEncrypt andIv:key andKey:key];
+//    pipeline.addrData = [addrData AES256OperationWithEncriptionMode:kCCEncrypt key:keyData iv:keyData];
     NSLog(@"addrData:%@",[pipeline.addrData description]);
 }
 
-- (NSData *)CFBWithOperation:(CCOperation)operation andIv:(NSString *)ivString andKey:(NSString *)keyString andInput:(NSData *)inputData{
-    
-    const char *iv = [[ivString dataUsingEncoding: NSUTF8StringEncoding] bytes];
-    const char *key = [[keyString dataUsingEncoding: NSUTF8StringEncoding] bytes];
-    
-    CCCryptorRef cryptor;
-    CCCryptorCreateWithMode(operation, kCCModeCFB, kCCAlgorithmAES, ccNoPadding, iv, key, [keyString length], NULL, 0, 0, 0, &cryptor);
-    
-    NSUInteger inputLength = inputData.length;
-    char *outData = malloc(inputLength);
-    memset(outData, 0, inputLength);
-    size_t outLength = 0;
-    CCCryptorUpdate(cryptor, inputData.bytes, inputLength, outData, inputLength, &outLength);
-    NSData *data = [NSData dataWithBytes: outData length: outLength];
-    CCCryptorRelease(cryptor);
-    free(outData);
-    return data;
-}
+//- (NSData *)CFBWithOperation:(CCOperation)operation andIv:(NSString *)ivString andKey:(NSString *)keyString andInput:(NSData *)inputData{
+//
+//    const char *iv = [[ivString dataUsingEncoding: NSUTF8StringEncoding] bytes];
+//    const char *key = [[keyString dataUsingEncoding: NSUTF8StringEncoding] bytes];
+//
+//    CCCryptorRef cryptor;
+//    CCCryptorCreateWithMode(operation, kCCModeCFB, kCCAlgorithmAES, ccNoPadding, iv, key, [keyString length], NULL, 0, 0, 0, &cryptor);
+//
+//    NSUInteger inputLength = inputData.length;
+//    char *outData = malloc(inputLength);
+//    memset(outData, 0, inputLength);
+//    size_t outLength = 0;
+//    CCCryptorUpdate(cryptor, inputData.bytes, inputLength, outData, inputLength, &outLength);
+//    NSData *data = [NSData dataWithBytes: outData length: outLength];
+//    CCCryptorRelease(cryptor);
+//    free(outData);
+//    return data;
+//}
 
 #pragma mark -- USERNAME/PASSWORD 协商
 //- (void)setConsultMethodUSRPSDWith:(EVPipeline *)pipeline data:(NSData *)data{

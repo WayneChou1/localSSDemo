@@ -12,6 +12,7 @@
 		621D1CD721CC7C1A00FAA721 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 621D1CD521CC7C1A00FAA721 /* WebViewController.xib */; };
 		621D1CDA21CC811F00FAA721 /* URLSchemeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */; };
 		621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */; };
+		6227B517224C655C00621744 /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 6227B516224C655C00621744 /* NSData+AES256.m */; };
 		622D31DD21ED71E9008A6A09 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 622D31DC21ED71E9008A6A09 /* libsodium.a */; };
 		F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9B921CA55D7009D6400 /* AppDelegate.m */; };
 		F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9BC21CA55D7009D6400 /* ViewController.m */; };
@@ -51,6 +52,8 @@
 		621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLSchemeHandler.m; sourceTree = "<group>"; };
 		621D1CDB21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WKWebViewConfiguration+proxyConifg.h"; sourceTree = "<group>"; };
 		621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WKWebViewConfiguration+proxyConifg.m"; sourceTree = "<group>"; };
+		6227B515224C655C00621744 /* NSData+AES256.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
+		6227B516224C655C00621744 /* NSData+AES256.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
 		622D319E21ED71E9008A6A09 /* crypto_stream_salsa2012.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_stream_salsa2012.h; sourceTree = "<group>"; };
 		622D319F21ED71E9008A6A09 /* crypto_auth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypto_auth.h; sourceTree = "<group>"; };
 		622D31A021ED71E9008A6A09 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				F650E9EB21CA56B3009D6400 /* SockClient.m */,
 				F650E9ED21CA598D009D6400 /* ProxyProtocol.h */,
 				F650E9EE21CA598D009D6400 /* ProxyProtocol.m */,
+				6227B515224C655C00621744 /* NSData+AES256.h */,
+				6227B516224C655C00621744 /* NSData+AES256.m */,
 				621D1CDB21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.h */,
 				621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */,
 				621D1CD821CC811F00FAA721 /* URLSchemeHandler.h */,
@@ -510,6 +515,7 @@
 				F650E9C821CA55D8009D6400 /* main.m in Sources */,
 				F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */,
 				621D1CDA21CC811F00FAA721 /* URLSchemeHandler.m in Sources */,
+				6227B517224C655C00621744 /* NSData+AES256.m in Sources */,
 				621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */,
 				F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */,
 				F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */,
@@ -685,7 +691,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DBVPS6244A;
+				DEVELOPMENT_TEAM = YTH2WAG5SM;
 				INFOPLIST_FILE = localSSDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -695,7 +701,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/localSSDemo/3rd/libsodium-ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eos.localSSDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijin.localSSDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -707,7 +713,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DBVPS6244A;
+				DEVELOPMENT_TEAM = YTH2WAG5SM;
 				INFOPLIST_FILE = localSSDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -717,7 +723,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/localSSDemo/3rd/libsodium-ios/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eos.localSSDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijin.localSSDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
