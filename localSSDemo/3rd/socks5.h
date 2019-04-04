@@ -6,6 +6,7 @@
 #define SOCKS_DOMAIN 0x03
 #define SOCKS_IPV6 0x04
 #define SOCKS_CMD_NOT_SUPPORTED 0x07
+#define SOCKS_CMD__SUPPORTED 0x00
 
 #pragma pack(1)
 
@@ -36,6 +37,8 @@ struct socks5_response
 	char rep;
 	char rsv;
 	char atyp;
+    char ADDR;
+    char PORT;
 };
 
 #pragma pack()

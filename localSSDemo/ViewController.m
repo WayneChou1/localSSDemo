@@ -10,7 +10,8 @@
 #import "WebViewController.h"
 #import "SockClient.h"
 
-static NSString * const host = @"140.82.29.149";
+//static NSString * const host = @"140.82.29.149";
+static NSString * const host = @"localhost";
 static NSInteger port = 8989;
 
 @interface ViewController ()

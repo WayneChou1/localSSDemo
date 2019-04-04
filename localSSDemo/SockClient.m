@@ -152,9 +152,10 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     }else if (tag == 3) { // read data from remote, send to local
         NSString *key = @"zzw1993";
 //        NSData *decryptData = [data AES128OperationWithEncriptionMode:kCCEncrypt key:keyData iv:keyData];
-        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
-        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
-        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
+//        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
+//        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
+//        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
+        [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
     }
     else if (tag == SOCKS_Consult) {
         [self socksConsultWithPipeline:pipeline data:data];
@@ -192,7 +193,8 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     if (tag == SOCKS_Consult) {
         
     }else if (tag == 2){
-        
+        [pipeline.remoteSocket readDataWithTimeout:-1 tag:3];
+//        [pipeline.localSocket readDataWithTimeout:-1 tag:2];
     }else if (tag == 3) {
         // write data to local
 //        [pipeline.remoteSocket readDataWithTimeout:-1 buffer:nil bufferOffset:0 maxLength:4096 tag:3];
@@ -214,7 +216,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     NSLog(@"didConnect:%@",sock);
     
     EVPipeline *pipeline = [self pipelineOfRemoteSocket:sock];
-    [pipeline.remoteSocket writeData:pipeline.addrData withTimeout:-1 tag:2];
+//    [pipeline.remoteSocket writeData:pipeline.addrData withTimeout:-1 tag:2];
     [self socksFakeReply:pipeline];
 }
 
@@ -235,8 +237,9 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     NSString *key = @"zzw1993";
     NSLog(@"addr_to_send3：%s",addr_to_send);
     NSData *addrData = [NSData dataWithBytes:addr_to_send length:addr_len];
-    pipeline.addrData = [addrData CFBWithOperation:kCCEncrypt andIv:key andKey:key];
+//    pipeline.addrData = [addrData CFBWithOperation:kCCEncrypt andIv:key andKey:key];
 //    pipeline.addrData = [addrData AES256OperationWithEncriptionMode:kCCEncrypt key:keyData iv:keyData];
+    pipeline.addrData = addrData;
     NSLog(@"addrData:%@",[pipeline.addrData description]);
 }
 
@@ -522,10 +525,12 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     
     memcpy(replayBytes, &response, 4);
     memcpy(replayBytes + 4, &sin_addr, sizeof(struct in_addr));
-    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr)))
-    = (unsigned short) htons(atoi("22"));
+    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("9090"));
     
-    [pipeline.localSocket writeData:[NSData dataWithBytes:replayBytes length:reply_size] withTimeout:-1 tag:3];
+    NSData *reponseData = [NSData dataWithBytes:replayBytes length:reply_size];
+    NSLog(@"reponseData:%@",reponseData);
+    
+    [pipeline.localSocket writeData:reponseData withTimeout:-1 tag:3];
     free(replayBytes);
 }
 

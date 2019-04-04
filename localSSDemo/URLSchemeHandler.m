@@ -35,7 +35,8 @@ static NSURLSession *session;
     self.task = [session dataTaskWithRequest:urlSchemeTask.request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         //NSLog(@"%@ - %@", self.request.URL, error);
         if (error) {
-            [urlSchemeTask didFailWithError:error];
+            NSLog(@"error:%@", error.localizedDescription);
+//            [urlSchemeTask didFailWithError:error];
         } else {
             [urlSchemeTask didReceiveResponse:response];
             [urlSchemeTask didReceiveData:data];
