@@ -520,7 +520,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     response.atyp = SOCKS_IPV4;
     
     struct in_addr sin_addr;
-    inet_aton("0.0.0.0", &sin_addr);
+    inet_aton("127.0.0.1", &sin_addr);
     
     int reply_size = 4 + sizeof(struct in_addr) + sizeof(unsigned short);
     char *replayBytes = (char *)malloc(reply_size);

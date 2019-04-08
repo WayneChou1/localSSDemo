@@ -38,6 +38,7 @@ static NSURLSession *session;
 {
     if (!session) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        configuration.HTTPMaximumConnectionsPerHost = 10;
         configuration.connectionProxyDictionary =
         @{(NSString *)kCFStreamPropertySOCKSProxyHost: @"127.0.0.1",
           (NSString *)kCFStreamPropertySOCKSProxyPort: @(ssLocalPort)};
@@ -61,5 +62,7 @@ static NSURLSession *session;
 - (void)stopLoading {
     [self.task cancel];
 }
+
+
 
 @end

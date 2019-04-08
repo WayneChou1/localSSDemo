@@ -43,7 +43,7 @@
     self.webview.navigationDelegate = self;
     [self.view addSubview:self.webview];
     
-    NSString *path = @"https://www.baidu.com/";
+    NSString *path = @"http://www.baidu.com/";
 //    NSString *path = @"";
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:path]]];
 }
