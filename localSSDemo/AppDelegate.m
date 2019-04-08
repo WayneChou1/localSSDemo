@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "URLSchemeHandler.h"
+#import "ProxyProtocol.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [URLSchemeHandler setLocalPort:9090];
+//    [ProxyProtocol setLocalPort:9090];
     return YES;
 }
 

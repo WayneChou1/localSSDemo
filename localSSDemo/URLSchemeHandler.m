@@ -26,9 +26,11 @@ static NSURLSession *session;
     
     if (!session) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        configuration.TLSMaximumSupportedProtocol = kTLSProtocol1;
         configuration.connectionProxyDictionary =
-        @{(NSString *)kCFStreamPropertySOCKSProxyHost: @"127.0.0.1",
-          (NSString *)kCFStreamPropertySOCKSProxyPort: @(ssLocalPort)};
+        @{(__bridge NSString *)kCFStreamPropertySOCKSProxyHost: @"127.0.0.1",
+          (__bridge NSString *)kCFStreamPropertySOCKSProxyPort: @(ssLocalPort),
+          };
         session = [NSURLSession sessionWithConfiguration:configuration];
     }
     

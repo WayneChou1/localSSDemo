@@ -155,6 +155,8 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 //        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
 //        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
 //        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
+        
+        NSLog(@"read from remote:%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
     }
     else if (tag == SOCKS_Consult) {
@@ -216,7 +218,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     NSLog(@"didConnect:%@",sock);
     
     EVPipeline *pipeline = [self pipelineOfRemoteSocket:sock];
-//    [pipeline.remoteSocket writeData:pipeline.addrData withTimeout:-1 tag:2];
+    [pipeline.remoteSocket writeData:pipeline.addrData withTimeout:-1 tag:2];
     [self socksFakeReply:pipeline];
 }
 
