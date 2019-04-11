@@ -32,6 +32,7 @@ static NSURLSession *session;
 
 + (void)setLocalPort:(NSInteger)localPort {
     ssLocalPort = localPort;
+    [self registerClass:self];
 }
 
 - (void)startLoading
@@ -62,6 +63,8 @@ static NSURLSession *session;
 - (void)stopLoading {
     [self.task cancel];
 }
+
+
 
 
 

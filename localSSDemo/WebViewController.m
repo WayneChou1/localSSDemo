@@ -13,7 +13,7 @@
 
 @interface WebViewController ()<WKNavigationDelegate>
 
-@property (nonatomic,strong) WKWebView *webview;
+@property (nonatomic,strong) UIWebView *webview;
 
 @end
 
@@ -27,20 +27,20 @@
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
-    Class cls = NSClassFromString(@"WKBrowsingContextController");
-    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
-    if ([(id)cls respondsToSelector:sel]) {
-        // 把 http 和 https 请求交给 NSURLProtocol 处理
-        [(id)cls performSelector:sel withObject:@"http"];
-        [(id)cls performSelector:sel withObject:@"https"];
-    }
-
-    WKWebViewConfiguration *config = [WKWebViewConfiguration proxyConifg];
+//    Class cls = NSClassFromString(@"WKBrowsingContextController");
+//    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+//    if ([(id)cls respondsToSelector:sel]) {
+//        // 把 http 和 https 请求交给 NSURLProtocol 处理
+//        [(id)cls performSelector:sel withObject:@"http"];
+//        [(id)cls performSelector:sel withObject:@"https"];
+//    }
+//
+//    WKWebViewConfiguration *config = [WKWebViewConfiguration proxyConifg];
     
 //    WKWebViewConfiguration *config = [WKWebViewConfiguration new];
     
-    self.webview = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, width, height) configuration:config];
-    self.webview.navigationDelegate = self;
+    self.webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+//    self.webview.navigationDelegate = self;
     [self.view addSubview:self.webview];
     
     NSString *path = @"https://www.baidu.com/";

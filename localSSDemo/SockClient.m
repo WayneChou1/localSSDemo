@@ -195,7 +195,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     if (tag == SOCKS_Consult) {
         
     }else if (tag == 2){
-        [pipeline.remoteSocket readDataWithTimeout:-1 tag:3];
+//        [pipeline.remoteSocket readDataWithTimeout:-1 tag:3];
 //        [pipeline.localSocket readDataWithTimeout:-1 tag:2];
     }else if (tag == 3) {
         // write data to local
@@ -521,14 +521,14 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     response.atyp = SOCKS_IPV4;
     
     struct in_addr sin_addr;
-    inet_aton("127.0.0.1", &sin_addr);
+    inet_aton("0.0.0.0", &sin_addr);
     
     int reply_size = 4 + sizeof(struct in_addr) + sizeof(unsigned short);
     char *replayBytes = (char *)malloc(reply_size);
     
     memcpy(replayBytes, &response, 4);
     memcpy(replayBytes + 4, &sin_addr, sizeof(struct in_addr));
-    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("22"));
+    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("0000"));
     
     NSData *reponseData = [NSData dataWithBytes:replayBytes length:reply_size];
     NSLog(@"reponseData:%@",reponseData);

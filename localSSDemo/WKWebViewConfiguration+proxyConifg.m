@@ -14,7 +14,11 @@
 + (WKWebViewConfiguration *)proxyConifg {
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     URLSchemeHandler *handler = [[URLSchemeHandler alloc] init];
-    [config setURLSchemeHandler:handler forURLScheme:@"zzw"];
+    if (@available(iOS 11.0, *)) {
+        [config setURLSchemeHandler:handler forURLScheme:@"zzw"];
+    } else {
+        // Fallback on earlier versions
+    }
     
     NSMutableDictionary *handlers = [config valueForKey:@"_urlSchemeHandlers"];
     handlers[@"http"] = handler;

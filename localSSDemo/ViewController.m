@@ -11,7 +11,7 @@
 #import "SockClient.h"
 
 //static NSString * const host = @"140.82.29.149";
-static NSString * const host = @"0";
+static NSString * const host = @"10.1.28.73";
 static NSInteger port = 8989;
 
 @interface ViewController ()
@@ -31,7 +31,7 @@ static NSInteger port = 8989;
         self.s = [[SockClient alloc] init];
         self.s.userName = @"";
         self.s.password = @"zzw1993";
-        [self.s startWithLocalPort:1080];
+        [self.s startWithLocalPort:9191];
         [self.s connectToHost:host port:port];
     }
 }
