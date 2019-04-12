@@ -19,7 +19,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    [URLSchemeHandler setLocalPort:9191];
-    [ProxyProtocol setLocalPort:9191];
+    [ProxyProtocol setLocalPort:2222];
     return YES;
 }
 

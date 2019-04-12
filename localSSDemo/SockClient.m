@@ -155,8 +155,6 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
 //        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
 //        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
 //        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
-        
-        NSLog(@"read from remote:%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
     }
     else if (tag == SOCKS_Consult) {
@@ -528,7 +526,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     
     memcpy(replayBytes, &response, 4);
     memcpy(replayBytes + 4, &sin_addr, sizeof(struct in_addr));
-    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("0000"));
+    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(pipeline.localSocket.connectedPort);
     
     NSData *reponseData = [NSData dataWithBytes:replayBytes length:reply_size];
     NSLog(@"reponseData:%@",reponseData);
