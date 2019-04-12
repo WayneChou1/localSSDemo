@@ -113,5 +113,10 @@ static NSURLSession *session;
     completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
 }
 
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask willCacheResponse:(NSCachedURLResponse *)proposedResponse completionHandler:(void (^)(NSCachedURLResponse *))completionHandler
+{
+    completionHandler(proposedResponse);
+}
+
 
 @end

@@ -526,7 +526,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     
     memcpy(replayBytes, &response, 4);
     memcpy(replayBytes + 4, &sin_addr, sizeof(struct in_addr));
-    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(pipeline.localSocket.connectedPort);
+    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("22"));
     
     NSData *reponseData = [NSData dataWithBytes:replayBytes length:reply_size];
     NSLog(@"reponseData:%@",reponseData);
