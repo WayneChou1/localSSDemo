@@ -14,6 +14,13 @@
 		621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */ = {isa = PBXBuildFile; fileRef = 621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */; };
 		6227B517224C655C00621744 /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 6227B516224C655C00621744 /* NSData+AES256.m */; };
 		622D31DD21ED71E9008A6A09 /* libsodium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 622D31DC21ED71E9008A6A09 /* libsodium.a */; };
+		AD67F04302FDA6983B8F1B65 /* libPods-PacketTunnel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8053777669719E2876ED149 /* libPods-PacketTunnel.a */; };
+		F6210BF4226171DF00695CCE /* VPNManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F6210BF3226171DF00695CCE /* VPNManager.m */; };
+		F624CBC5226318B200A9A144 /* CustomHTTPProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F624CBBE226318B100A9A144 /* CustomHTTPProtocol.m */; };
+		F624CBC6226318B200A9A144 /* QNSURLSessionDemux.m in Sources */ = {isa = PBXBuildFile; fileRef = F624CBC0226318B100A9A144 /* QNSURLSessionDemux.m */; };
+		F624CBC7226318B200A9A144 /* CacheStoragePolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = F624CBC1226318B100A9A144 /* CacheStoragePolicy.m */; };
+		F624CBC8226318B200A9A144 /* CanonicalRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F624CBC2226318B100A9A144 /* CanonicalRequest.m */; };
+		F624CBCB226319F700A9A144 /* CredentialsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F624CBCA226319F700A9A144 /* CredentialsManager.m */; };
 		F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9B921CA55D7009D6400 /* AppDelegate.m */; };
 		F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9BC21CA55D7009D6400 /* ViewController.m */; };
 		F650E9C021CA55D7009D6400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F650E9BE21CA55D7009D6400 /* Main.storyboard */; };
@@ -22,8 +29,11 @@
 		F650E9C821CA55D8009D6400 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9C721CA55D8009D6400 /* main.m */; };
 		F650E9D221CA55D8009D6400 /* localSSDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9D121CA55D8009D6400 /* localSSDemoTests.m */; };
 		F650E9DD21CA55D8009D6400 /* localSSDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9DC21CA55D8009D6400 /* localSSDemoUITests.m */; };
-		F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EB21CA56B3009D6400 /* SockClient.m */; };
 		F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EE21CA598D009D6400 /* ProxyProtocol.m */; };
+		F6824D362260DAD4003CD042 /* PacketTunnelProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = F6824D352260DAD4003CD042 /* PacketTunnelProvider.m */; };
+		F6824D3B2260DAD4003CD042 /* PacketTunnel.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F6824D322260DAD3003CD042 /* PacketTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		F6824D412260E950003CD042 /* SockClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EB21CA56B3009D6400 /* SockClient.m */; };
+		F6824D422260E954003CD042 /* SockClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F650E9EB21CA56B3009D6400 /* SockClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +51,28 @@
 			remoteGlobalIDString = F650E9B421CA55D7009D6400;
 			remoteInfo = localSSDemo;
 		};
+		F6824D392260DAD4003CD042 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F650E9AD21CA55D7009D6400 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F6824D312260DAD3003CD042;
+			remoteInfo = PacketTunnel;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F6824D3F2260DAD4003CD042 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F6824D3B2260DAD4003CD042 /* PacketTunnel.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localSSDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-localSSDemo/Pods-localSSDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -117,7 +148,22 @@
 		622D31DA21ED71E9008A6A09 /* sodium.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sodium.h; sourceTree = "<group>"; };
 		622D31DC21ED71E9008A6A09 /* libsodium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsodium.a; sourceTree = "<group>"; };
 		6987149CF4595BDFA135084C /* libPods-localSSDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-localSSDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A73FD6BE9C0D0F897A75FFF0 /* Pods-PacketTunnel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.debug.xcconfig"; sourceTree = "<group>"; };
+		B6465E8671B3818321A3F58B /* Pods-PacketTunnel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PacketTunnel.release.xcconfig"; path = "Pods/Target Support Files/Pods-PacketTunnel/Pods-PacketTunnel.release.xcconfig"; sourceTree = "<group>"; };
+		B8053777669719E2876ED149 /* libPods-PacketTunnel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PacketTunnel.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F616B89821D8D7DE007763D8 /* socks5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = socks5.h; sourceTree = "<group>"; };
+		F6210BF2226171DF00695CCE /* VPNManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VPNManager.h; sourceTree = "<group>"; };
+		F6210BF3226171DF00695CCE /* VPNManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VPNManager.m; sourceTree = "<group>"; };
+		F624CBBD226318B100A9A144 /* CacheStoragePolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheStoragePolicy.h; sourceTree = "<group>"; };
+		F624CBBE226318B100A9A144 /* CustomHTTPProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHTTPProtocol.m; sourceTree = "<group>"; };
+		F624CBBF226318B100A9A144 /* CanonicalRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanonicalRequest.h; sourceTree = "<group>"; };
+		F624CBC0226318B100A9A144 /* QNSURLSessionDemux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNSURLSessionDemux.m; sourceTree = "<group>"; };
+		F624CBC1226318B100A9A144 /* CacheStoragePolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheStoragePolicy.m; sourceTree = "<group>"; };
+		F624CBC2226318B100A9A144 /* CanonicalRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanonicalRequest.m; sourceTree = "<group>"; };
+		F624CBC3226318B100A9A144 /* CustomHTTPProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHTTPProtocol.h; sourceTree = "<group>"; };
+		F624CBC4226318B100A9A144 /* QNSURLSessionDemux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNSURLSessionDemux.h; sourceTree = "<group>"; };
+		F624CBC9226319F700A9A144 /* CredentialsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsManager.h; sourceTree = "<group>"; };
+		F624CBCA226319F700A9A144 /* CredentialsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsManager.m; sourceTree = "<group>"; };
 		F650E9B521CA55D7009D6400 /* localSSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = localSSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F650E9B821CA55D7009D6400 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F650E9B921CA55D7009D6400 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -138,6 +184,11 @@
 		F650E9EB21CA56B3009D6400 /* SockClient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SockClient.m; sourceTree = "<group>"; };
 		F650E9ED21CA598D009D6400 /* ProxyProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyProtocol.h; sourceTree = "<group>"; };
 		F650E9EE21CA598D009D6400 /* ProxyProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxyProtocol.m; sourceTree = "<group>"; };
+		F6824D322260DAD3003CD042 /* PacketTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PacketTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6824D342260DAD4003CD042 /* PacketTunnelProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketTunnelProvider.h; sourceTree = "<group>"; };
+		F6824D352260DAD4003CD042 /* PacketTunnelProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PacketTunnelProvider.m; sourceTree = "<group>"; };
+		F6824D372260DAD4003CD042 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F6824D382260DAD4003CD042 /* PacketTunnel.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PacketTunnel.entitlements; sourceTree = "<group>"; };
 		FC148F4EF88E62562A35C398 /* Pods-localSSDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-localSSDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-localSSDemo/Pods-localSSDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +216,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6824D2F2260DAD3003CD042 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD67F04302FDA6983B8F1B65 /* libPods-PacketTunnel.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -172,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				6987149CF4595BDFA135084C /* libPods-localSSDemo.a */,
+				B8053777669719E2876ED149 /* libPods-PacketTunnel.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,6 +334,8 @@
 			children = (
 				FC148F4EF88E62562A35C398 /* Pods-localSSDemo.debug.xcconfig */,
 				3704CB9B421FF10C347DE726 /* Pods-localSSDemo.release.xcconfig */,
+				A73FD6BE9C0D0F897A75FFF0 /* Pods-PacketTunnel.debug.xcconfig */,
+				B6465E8671B3818321A3F58B /* Pods-PacketTunnel.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -287,12 +349,28 @@
 			path = 3rd;
 			sourceTree = "<group>";
 		};
+		F624CBBC226318B100A9A144 /* Core Code */ = {
+			isa = PBXGroup;
+			children = (
+				F624CBC3226318B100A9A144 /* CustomHTTPProtocol.h */,
+				F624CBBE226318B100A9A144 /* CustomHTTPProtocol.m */,
+				F624CBBF226318B100A9A144 /* CanonicalRequest.h */,
+				F624CBC2226318B100A9A144 /* CanonicalRequest.m */,
+				F624CBC0226318B100A9A144 /* QNSURLSessionDemux.m */,
+				F624CBC4226318B100A9A144 /* QNSURLSessionDemux.h */,
+				F624CBC1226318B100A9A144 /* CacheStoragePolicy.m */,
+				F624CBBD226318B100A9A144 /* CacheStoragePolicy.h */,
+			);
+			path = "Core Code";
+			sourceTree = "<group>";
+		};
 		F650E9AC21CA55D7009D6400 = {
 			isa = PBXGroup;
 			children = (
 				F650E9B721CA55D7009D6400 /* localSSDemo */,
 				F650E9D021CA55D8009D6400 /* localSSDemoTests */,
 				F650E9DB21CA55D8009D6400 /* localSSDemoUITests */,
+				F6824D332260DAD4003CD042 /* PacketTunnel */,
 				F650E9B621CA55D7009D6400 /* Products */,
 				A91871C9D02B388D1F8E11EE /* Pods */,
 				17F2CC1A572278FEBCA8F38F /* Frameworks */,
@@ -305,6 +383,7 @@
 				F650E9B521CA55D7009D6400 /* localSSDemo.app */,
 				F650E9CD21CA55D8009D6400 /* localSSDemoTests.xctest */,
 				F650E9D821CA55D8009D6400 /* localSSDemoUITests.xctest */,
+				F6824D322260DAD3003CD042 /* PacketTunnel.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,11 +396,13 @@
 				F650E9B921CA55D7009D6400 /* AppDelegate.m */,
 				F650E9BB21CA55D7009D6400 /* ViewController.h */,
 				F650E9BC21CA55D7009D6400 /* ViewController.m */,
+				F6210BF2226171DF00695CCE /* VPNManager.h */,
+				F6210BF3226171DF00695CCE /* VPNManager.m */,
+				F650E9EA21CA56B3009D6400 /* SockClient.h */,
+				F650E9EB21CA56B3009D6400 /* SockClient.m */,
 				621D1CD321CC7C1A00FAA721 /* WebViewController.h */,
 				621D1CD421CC7C1A00FAA721 /* WebViewController.m */,
 				621D1CD521CC7C1A00FAA721 /* WebViewController.xib */,
-				F650E9EA21CA56B3009D6400 /* SockClient.h */,
-				F650E9EB21CA56B3009D6400 /* SockClient.m */,
 				F650E9ED21CA598D009D6400 /* ProxyProtocol.h */,
 				F650E9EE21CA598D009D6400 /* ProxyProtocol.m */,
 				6227B515224C655C00621744 /* NSData+AES256.h */,
@@ -330,6 +411,9 @@
 				621D1CDC21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m */,
 				621D1CD821CC811F00FAA721 /* URLSchemeHandler.h */,
 				621D1CD921CC811F00FAA721 /* URLSchemeHandler.m */,
+				F624CBC9226319F700A9A144 /* CredentialsManager.h */,
+				F624CBCA226319F700A9A144 /* CredentialsManager.m */,
+				F624CBBC226318B100A9A144 /* Core Code */,
 				F650E9BE21CA55D7009D6400 /* Main.storyboard */,
 				F650E9C121CA55D8009D6400 /* Assets.xcassets */,
 				F650E9C321CA55D8009D6400 /* LaunchScreen.storyboard */,
@@ -357,6 +441,17 @@
 			path = localSSDemoUITests;
 			sourceTree = "<group>";
 		};
+		F6824D332260DAD4003CD042 /* PacketTunnel */ = {
+			isa = PBXGroup;
+			children = (
+				F6824D342260DAD4003CD042 /* PacketTunnelProvider.h */,
+				F6824D352260DAD4003CD042 /* PacketTunnelProvider.m */,
+				F6824D372260DAD4003CD042 /* Info.plist */,
+				F6824D382260DAD4003CD042 /* PacketTunnel.entitlements */,
+			);
+			path = PacketTunnel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -368,10 +463,12 @@
 				F650E9B121CA55D7009D6400 /* Sources */,
 				F650E9B221CA55D7009D6400 /* Frameworks */,
 				F650E9B321CA55D7009D6400 /* Resources */,
+				F6824D3F2260DAD4003CD042 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F6824D3A2260DAD4003CD042 /* PBXTargetDependency */,
 			);
 			name = localSSDemo;
 			productName = localSSDemo;
@@ -414,6 +511,24 @@
 			productReference = F650E9D821CA55D8009D6400 /* localSSDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		F6824D312260DAD3003CD042 /* PacketTunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6824D3E2260DAD4003CD042 /* Build configuration list for PBXNativeTarget "PacketTunnel" */;
+			buildPhases = (
+				D0F21085BAD4E7F335F36AD8 /* [CP] Check Pods Manifest.lock */,
+				F6824D2E2260DAD3003CD042 /* Sources */,
+				F6824D2F2260DAD3003CD042 /* Frameworks */,
+				F6824D302260DAD3003CD042 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PacketTunnel;
+			productName = PacketTunnel;
+			productReference = F6824D322260DAD3003CD042 /* PacketTunnel.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -434,6 +549,9 @@
 						CreatedOnToolsVersion = 10.0;
 						TestTargetID = F650E9B421CA55D7009D6400;
 					};
+					F6824D312260DAD3003CD042 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 				};
 			};
 			buildConfigurationList = F650E9B021CA55D7009D6400 /* Build configuration list for PBXProject "localSSDemo" */;
@@ -452,6 +570,7 @@
 				F650E9B421CA55D7009D6400 /* localSSDemo */,
 				F650E9CC21CA55D8009D6400 /* localSSDemoTests */,
 				F650E9D721CA55D8009D6400 /* localSSDemoUITests */,
+				F6824D312260DAD3003CD042 /* PacketTunnel */,
 			);
 		};
 /* End PBXProject section */
@@ -482,6 +601,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6824D302260DAD3003CD042 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -503,6 +629,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D0F21085BAD4E7F335F36AD8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PacketTunnel-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -511,13 +655,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				F650E9BD21CA55D7009D6400 /* ViewController.m in Sources */,
+				F624CBC8226318B200A9A144 /* CanonicalRequest.m in Sources */,
+				F6824D412260E950003CD042 /* SockClient.m in Sources */,
 				621D1CD621CC7C1A00FAA721 /* WebViewController.m in Sources */,
+				F624CBC7226318B200A9A144 /* CacheStoragePolicy.m in Sources */,
 				F650E9C821CA55D8009D6400 /* main.m in Sources */,
-				F650E9EC21CA56B3009D6400 /* SockClient.m in Sources */,
+				F6210BF4226171DF00695CCE /* VPNManager.m in Sources */,
+				F624CBCB226319F700A9A144 /* CredentialsManager.m in Sources */,
 				621D1CDA21CC811F00FAA721 /* URLSchemeHandler.m in Sources */,
 				6227B517224C655C00621744 /* NSData+AES256.m in Sources */,
+				F624CBC5226318B200A9A144 /* CustomHTTPProtocol.m in Sources */,
 				621D1CDD21CC871900FAA721 /* WKWebViewConfiguration+proxyConifg.m in Sources */,
 				F650E9BA21CA55D7009D6400 /* AppDelegate.m in Sources */,
+				F624CBC6226318B200A9A144 /* QNSURLSessionDemux.m in Sources */,
 				F650E9EF21CA598D009D6400 /* ProxyProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +688,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6824D2E2260DAD3003CD042 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6824D422260E954003CD042 /* SockClient.m in Sources */,
+				F6824D362260DAD4003CD042 /* PacketTunnelProvider.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -550,6 +709,11 @@
 			isa = PBXTargetDependency;
 			target = F650E9B421CA55D7009D6400 /* localSSDemo */;
 			targetProxy = F650E9D921CA55D8009D6400 /* PBXContainerItemProxy */;
+		};
+		F6824D3A2260DAD4003CD042 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F6824D312260DAD3003CD042 /* PacketTunnel */;
+			targetProxy = F6824D392260DAD4003CD042 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -693,7 +857,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YTH2WAG5SM;
 				INFOPLIST_FILE = localSSDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -716,7 +880,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YTH2WAG5SM;
 				INFOPLIST_FILE = localSSDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -805,6 +969,48 @@
 			};
 			name = Release;
 		};
+		F6824D3C2260DAD4003CD042 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A73FD6BE9C0D0F897A75FFF0 /* Pods-PacketTunnel.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YTH2WAG5SM;
+				INFOPLIST_FILE = PacketTunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijin.localSSDemo.PacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F6824D3D2260DAD4003CD042 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6465E8671B3818321A3F58B /* Pods-PacketTunnel.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YTH2WAG5SM;
+				INFOPLIST_FILE = PacketTunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zijin.localSSDemo.PacketTunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -840,6 +1046,15 @@
 			buildConfigurations = (
 				F650E9E821CA55D8009D6400 /* Debug */,
 				F650E9E921CA55D8009D6400 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6824D3E2260DAD4003CD042 /* Build configuration list for PBXNativeTarget "PacketTunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6824D3C2260DAD4003CD042 /* Debug */,
+				F6824D3D2260DAD4003CD042 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

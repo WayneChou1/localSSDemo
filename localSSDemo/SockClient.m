@@ -153,7 +153,7 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         NSString *key = @"zzw1993";
 //        NSData *decryptData = [data AES128OperationWithEncriptionMode:kCCEncrypt key:keyData iv:keyData];
 //        NSData *decryptData = [data CFBWithOperation:kCCEncrypt andIv:key andKey:key];
-//        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[decryptData description]);
+//        NSLog(@"didReadTagDecode:%ld,  didReadData:%@",tag,[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 //        [pipeline.localSocket writeData:decryptData withTimeout:-1 tag:3];
         [pipeline.localSocket writeData:data withTimeout:-1 tag:3];
     }
@@ -477,9 +477,6 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         inet_ntop(AF_INET, pipeline.requestData.bytes + 4, addr_str, ADDR_STR_LEN);
     } else if (request->atyp == SOCKS_DOMAIN) {
         // Domain name
-        
-        NSLog(@"addr_to_send1：%s",addr_to_send);
-        
         unsigned char name_len = *(unsigned char *)(pipeline.requestData.bytes + 4);
         addr_to_send[addr_len++] = name_len;
         memcpy(addr_to_send + addr_len, pipeline.requestData.bytes + 4 + 1, name_len);
@@ -487,17 +484,12 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
         addr_str[name_len] = '\0';
         addr_len += name_len;
         
-        NSLog(@"addr_to_send2：%s",addr_to_send);
-        
         // get port
         unsigned char v1 = *(unsigned char *)(pipeline.requestData.bytes + 4 + 1 + name_len);
         unsigned char v2 = *(unsigned char *)(pipeline.requestData.bytes + 4 + 1 + name_len + 1);
         addr_to_send[addr_len++] = v1;
         addr_to_send[addr_len++] = v2;
         
-        NSLog(@"name_len:%x",name_len);
-        NSLog(@"addr_to_send3：%s",addr_to_send);
-//        NSLog(@"addr_len:%d",addr_len);
     } else {
         [pipeline disconnect];
         return -1;
@@ -511,6 +503,8 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
  *  @param pipeline pipeline
  */
 - (void)socksFakeReply:(EVPipeline *)pipeline {
+    
+    
     // Fake reply
     struct socks5_response response;
     response.ver = SOCKS_VERSION;
@@ -519,20 +513,37 @@ static NSInteger const ADDR_STR_LEN = 512;            //!< url length
     response.atyp = SOCKS_IPV4;
     
     struct in_addr sin_addr;
-    inet_aton("0.0.0.0", &sin_addr);
+    inet_aton([@"127.0.0.1" UTF8String], &sin_addr);
     
     int reply_size = 4 + sizeof(struct in_addr) + sizeof(unsigned short);
     char *replayBytes = (char *)malloc(reply_size);
     
     memcpy(replayBytes, &response, 4);
     memcpy(replayBytes + 4, &sin_addr, sizeof(struct in_addr));
-    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("22"));
+    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons(atoi("2222"));
+//    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons((int)_port);
+//    *((unsigned short *)(replayBytes + 4 + sizeof(struct in_addr))) = (unsigned short) htons((uint16_t)_port);
+    NSData *responseDataB = [NSData dataWithBytes:replayBytes length:reply_size];
+    NSLog(@"responseDataB:%@",responseDataB);
+    [pipeline.localSocket writeData:responseDataB withTimeout:-1 tag:3];
     
-    NSData *reponseData = [NSData dataWithBytes:replayBytes length:reply_size];
-    NSLog(@"reponseData:%@",reponseData);
-    
-    [pipeline.localSocket writeData:reponseData withTimeout:-1 tag:3];
-    free(replayBytes);
+//    NSUInteger hostLength = [_host lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+//    NSUInteger responseLength = 5 + hostLength + 2;
+//    uint8_t *responseBytes = malloc(responseLength * sizeof(uint8_t));
+//    responseBytes[0] = 5;
+//    responseBytes[1] = 0;
+//    responseBytes[2] = 0;
+//    responseBytes[3] = 3;
+//    responseBytes[4] = (uint8_t)hostLength;
+//    memcpy(responseBytes+5, [_host UTF8String], hostLength);
+//
+//    uint16_t port = (uint16_t)_port;
+//    uint16_t bigEndianPort = NSSwapHostShortToBig(port);
+//    NSUInteger portLength = 2;
+//    memcpy(responseBytes+5+hostLength, &bigEndianPort, portLength);
+//    NSData *responseData = [NSData dataWithBytesNoCopy:responseBytes length:responseLength freeWhenDone:YES];
+//    NSLog(@"responseData:%@",responseData);
+//    [pipeline.localSocket writeData:responseData withTimeout:-1 tag:3];
 }
 
 #pragma mark - getter

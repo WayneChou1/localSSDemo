@@ -44,7 +44,20 @@
                             <constraint firstItem="gZv-Tl-hXT" firstAttribute="top" secondItem="Zsz-Up-KgA" secondAttribute="bottom" constant="56" id="YmX-fG-0be"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Olf-eD-x9q"/>
+                    <navigationItem key="navigationItem" id="Olf-eD-x9q">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="TFT-dV-FtS">
+                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="NeZ-G6-xfs">
+                                <rect key="frame" x="308" y="6.5" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="switchOnClick:" destination="BYZ-38-t0r" eventType="valueChanged" id="csu-8M-BYx"/>
+                                </connections>
+                            </switch>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="vpnSwitch" destination="NeZ-G6-xfs" id="yaX-A0-FHc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
